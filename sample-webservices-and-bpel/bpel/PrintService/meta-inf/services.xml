@@ -1,0 +1,10 @@
+<service name="PrintService">
+    <Description>
+        This service is to get inventory info
+    </Description>
+    <parameter name="ServiceClass" locked="false">pdn.bee.service.PrintService</parameter>
+    <operation name="print">
+    <messageReceiver  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>
+
+</service>

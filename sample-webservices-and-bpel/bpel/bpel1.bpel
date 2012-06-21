@@ -1,0 +1,49 @@
+<process name="addProcess"
+        targetNamespace="http://pdn.bee.org/addProcess"
+	xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+	xmlns:add="http://ws.apache.org/axis2/xsd"
+	xmlns:adds="http://ws.apache.org/axis2"
+        xmlns:cubes="http://ws.apache.org/axis2/xsd">
+
+	<!--Hello World - my first ever BPEL program -->
+
+		
+	<partnerLinks>
+		<partnerLink 	name="AddPL" 
+				partnerLinkType="add:printLink" 
+				partnerRole="printService"/>
+		<partnerLink	name="CubePL"
+				partnerLinkType="add:printLink"
+				partnerRole="printService "/>
+	</partnerLinks>
+	
+	<variables>
+		<variable 	name="addInput" 
+				messageType="add:addMessage" />
+                <variable       name="cubeInput"
+                                messageType="cube:cubeMessage"/>
+                <variable       name="dummyVar"
+				messageType="add:addMessage"/>
+		
+	</variables>
+	
+	<sequence>
+	
+	<assign>
+		<copy>
+			<from variable="addInput" part="part1"/>
+		        <to variable="dummyVar" part="part1"/>
+        	</copy>
+	</assign>
+
+        <recieve variable="addInput"/>
+	<invoke partnerLink="AddPL"
+          operation="add" portType="adds:addPortType" inputVariable="addInput"
+          outputVariable="cubeInput" />
+	<invoke partnerLink="CubePL"
+	   operation="cube" portType="cubes:cubePortType" inputVariable="cubeInput"/>         
+                   
+       
+</sequence>
+
+</process>

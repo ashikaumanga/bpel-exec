@@ -1,0 +1,10 @@
+<service name="BuyService">
+    <Description>
+        This service is to get the running Axis version
+    </Description>
+    <parameter name="ServiceClass" locked="false">pdn.bee.service.Buy</parameter>
+    <operation name="bye">
+    <messageReceiver  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>
+
+</service>

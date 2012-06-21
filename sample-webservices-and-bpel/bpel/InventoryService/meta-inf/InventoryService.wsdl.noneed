@@ -1,0 +1,16 @@
+<wsdl:definitions xmlns:axis2="http://service.bee.pdn" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://service.bee.pdn/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://service.bee.pdn"><wsdl:documentation>InventoryService</wsdl:documentation><wsdl:types><xs:schema xmlns:ns="http://service.bee.pdn/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.bee.pdn/xsd">
+<xs:element name="getItemPrice">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="itemId" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="getIntResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" nillable="true" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema></wsdl:types><wsdl:message name="getItemPriceMessage"><wsdl:part name="part1" element="ns0:getItemPrice" /></wsdl:message><wsdl:message name="getItemPriceResponse"><wsdl:part name="part1" element="ns0:getItemPriceResponse" /></wsdl:message><wsdl:portType name="InventoryServicePortType"><wsdl:operation name="getItemPrice"><wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" message="axis2:getItemPriceMessage" wsaw:Action="urn:getItemPrice" /><wsdl:output message="axis2:getIntResponse" /></wsdl:operation></wsdl:portType><wsdl:binding name="InventoryServiceSOAP11Binding" type="axis2:InventoryServicePortType"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" /><wsdl:operation name="getItemPrice"><soap:operation soapAction="urn:getItemPrice" style="document" /><wsdl:input><soap:body use="literal" /></wsdl:input><wsdl:output><soap:body use="literal" /></wsdl:output></wsdl:operation></wsdl:binding><wsdl:binding name="InventoryServiceSOAP12Binding" type="axis2:InventoryServicePortType"><soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" /><wsdl:operation name="getItemPrice"><soap12:operation soapAction="urn:getItemPrice" style="document" /><wsdl:input><soap12:body use="literal" /></wsdl:input><wsdl:output><soap12:body use="literal" /></wsdl:output></wsdl:operation></wsdl:binding><wsdl:service name="InventoryService"><wsdl:port name="InventoryServiceSOAP11port_http" binding="axis2:InventoryServiceSOAP11Binding"><soap:address location="http://10.40.66.100:9090/axis2/services/InventoryService" /></wsdl:port><wsdl:port name="InventoryServiceSOAP12port_http" binding="axis2:InventoryServiceSOAP12Binding"><soap12:address location="http://10.40.66.100:9090/axis2/services/InventoryService" /></wsdl:port></wsdl:service></wsdl:definitions>

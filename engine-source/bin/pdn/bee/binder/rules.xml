@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digester-rules>
+
+	<pattern value="process">
+		<factory-create-rule classname="pdn.bee.binder.ProcessFactory"/>
+		
+		<pattern value="partnerLinks">
+			<object-create-rule classname="pdn.bee.model.bpel11.elements.impl.PartnerLinksImpl"/>
+				<pattern value="partnerLink">
+					<factory-create-rule classname="pdn.bee.binder.PartnerLinkFactory"/>
+					<set-next-rule methodname="addPartnerLink"/>
+				</pattern>
+			<set-next-rule methodname="setPartnerLinks"/>
+		</pattern>
+		
+		<pattern value="variables">
+			<object-create-rule classname="pdn.bee.model.bpel11.elements.impl.VariablesImpl"/>
+				<pattern value="variable">
+					<factory-create-rule classname="pdn.bee.binder.VariableFactory"/>
+					<set-next-rule methodname="addVariable"/>
+				</pattern>
+				<set-next-rule methodname="setVariables"/>
+		</pattern>
+		
+		<set-next-rule methodname="setProcess"/>
+	</pattern>
+	
+	<pattern value="*/sequence">
+		<factory-create-rule classname="pdn.bee.binder.SequenceFactory"/>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+	<pattern value="*/flow">
+		<factory-create-rule classname="pdn.bee.binder.FlowFactory"/>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+	<pattern value="*/invoke">
+		<factory-create-rule classname="pdn.bee.binder.InvokeFactory"/>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+	<pattern value="*/recieve">
+		<factory-create-rule classname="pdn.bee.binder.RecieveFactory"/>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+	<pattern value="*/assign">
+		<factory-create-rule classname="pdn.bee.binder.AssignFactory"/>
+		<pattern value="copy">
+			<object-create-rule classname="pdn.bee.model.bpel11.elements.impl.CopyImpl"/>
+			<pattern value="from">
+				<factory-create-rule classname="pdn.bee.binder.FromFactory"/>
+				<set-next-rule methodname="setFrom"/>
+			</pattern>
+			<pattern value="to">
+				<factory-create-rule classname="pdn.bee.binder.ToFactory"/>
+				<set-next-rule methodname="setTo"/>
+			</pattern>
+			<set-next-rule methodname="addCopy"/>
+		</pattern>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+	<pattern value="*/reply">
+		<factory-create-rule classname="pdn.bee.binder.ReplyFactory"/>
+		<set-next-rule methodname="setActivity"/>
+	</pattern>
+	
+</digester-rules>

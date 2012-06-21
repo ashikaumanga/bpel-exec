@@ -1,0 +1,100 @@
+<process name="addProcess"
+        targetNamespace="http://pdn.bee.org/addProcess"
+	xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+	xmlns:crd="http://service.bee.pdn"
+	xmlns:buy="http://service.bee.pdn"
+	xmlns:inv="http://service.bee.pdn"
+	xmlns:print="http://service.bee.pdn"
+	xmlns:crds="http://service.bee.pdn/xsd"
+        
+	xmlns:invs="http://service.bee.pdn/xsd"
+	xmlns:tns="http://service.bee.pdn"
+	xmlns:buys="http://service.bee.pdn/xsd"
+        xmlns:prints="http://service.bee.pdn/xsd">
+	
+
+	
+
+		
+	<partnerLinks>
+		<partnerLink 	name="creditPL" 
+				partnerLinkType="add:creditLink" 
+				partnerRole="CreditService"/>
+		<partnerLink	name="invPL"
+				partnerLinkType="add:inventoryLink"
+				partnerRole="InventoryService "/>
+		<partnerLink	name="buyPL"
+				partnerLinkType="crds:buyLink"
+				partnerRole="BuyService "/>
+	</partnerLinks>
+	
+	
+	<variables>
+
+		<variable	name="processInput"
+				messageType="prints:ProcessInputMessage"/>
+
+		<variable 	name="creditInput" 
+				messageType="crds:getCreditLimitMessage" />
+               
+	 	<variable       name="inventoryInput"
+                                messageType="invs:getItemPriceMessage"/>
+                
+		<variable       name="creditResult"
+				messageType="crds:getCreditLimitResponse"/>
+		<variable	name="invResult"
+				messageType="invs:getItemPriceResponse"/>
+		
+		
+		
+	</variables>
+	
+	<sequence>
+	
+        <recieve variable="processInput"/>
+	
+	
+	<assign>
+		<copy>
+			<from variable="processInput" part="part1"/>
+		        <to variable="creditInput" part="part1"/>
+        	</copy>
+	</assign>
+	
+	
+	<assign>
+		<copy>
+			<from variable="processInput" part="part2"/>
+		        <to variable="inventoryInput" part="part1"/>
+        	</copy>
+	</assign>
+
+        <!-- execute activities in parallel -->
+	<flow>
+		<invoke partnerLink="creditPL"
+          		operation="getCreditLimit" portType="crd:CreditServicePortType" inputVariable="creditInput"
+          		outputVariable="creditResult" />
+	
+		<invoke partnerLink="invPL"
+	   		operation="getItemPrice" portType="inv:InventoryServicePortType" inputVariable="inventoryInput"
+	   		outputVariable="invResult"/>
+  
+	</flow>
+        
+	<!-- execute activities in sequencial manner -->
+	<sequence>
+
+		<invoke partnerLink="buyPL"
+          		operation="buy" portType="buy:BuyServicePortType" inputVariable="invResult"          />
+	
+
+		<invoke partnerLink="buyPL"
+          		operation="buy" portType="buy:BuyServicePortType" inputVariable="creditResult"          />
+	</sequence>
+	
+	
+           
+
+</sequence>
+
+</process>

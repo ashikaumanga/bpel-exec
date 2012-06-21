@@ -1,0 +1,10 @@
+<service name="CubeService">
+    <Description>
+        This service is to get the running Axis version
+    </Description>
+    <parameter name="ServiceClass" locked="false">CubeService</parameter>
+    <operation name="cube">
+    <messageReceiver  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>
+
+</service>

@@ -1,0 +1,10 @@
+<service name="InventoryService">
+    <Description>
+        This service is to get inventory info
+    </Description>
+    <parameter name="ServiceClass" locked="false">pdn.bee.service.InventoryService</parameter>
+    <operation name="getItemPrice">
+    <messageReceiver  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>
+
+</service>

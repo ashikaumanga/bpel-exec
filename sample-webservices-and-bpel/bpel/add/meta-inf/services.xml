@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service>
+	<parameter name="ServiceClass" 
+          locked="false">Add</parameter>
+	<operation name="add">
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+	</operation>
+	 
+</service>

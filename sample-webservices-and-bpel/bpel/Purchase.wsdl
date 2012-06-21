@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<definitions name="Travel"
+        targetNamespace="http://service.bee.pdn"
+        xmlns:tns="http://bexee.sourceforge.net/Travel"
+        xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"        
+	xmlns:bxsd="http://service.bee.pdn/xsd">
+        
+  <message name="ProcessInputMessage">
+    <part name="part1" type="bxsd:getCreditLimit"/>
+    <part name="part2" type="bxsd:getItemPrice"/>
+  </message>
+  
+  
+  <portType name="InitTravel">
+    <operation name="initiate">
+      <input message="tns:ProcessInputMessage"/>
+      <output message="tns:ProcessInputMessage"/>
+    </operation>
+  </portType>
+  
+  <plnk:partnerLinkType name="BookTravel">
+    <plnk:role name="TravelProvider">
+      <plnk:portType name="tns:InitTravel"/>
+    </plnk:role>
+  </plnk:partnerLinkType>
+   
+</definitions>

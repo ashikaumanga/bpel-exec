@@ -1,0 +1,10 @@
+<service name="CreditService">
+    <Description>
+        This service is to get credit limit of a customer
+    </Description>
+    <parameter name="ServiceClass" locked="false">pdn.bee.service.CreditService</parameter>
+    <operation name="getCreditLimit">
+    <messageReceiver  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>
+
+</service>
